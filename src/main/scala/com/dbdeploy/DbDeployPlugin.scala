@@ -2,7 +2,6 @@ package com.dbdeploy
 
 import sbt._
 import sbt.Keys._
-import classpath._
 
 object DbDeployPlugin extends Plugin {
 
@@ -20,11 +19,7 @@ object DbDeployPlugin extends Plugin {
 //    val lastChangeToApply = SettingKey[String]("dbdeploy-last-change-to-apply", "number of the last script to apply")
 //    val undoOutputFile = SettingKey[String]("dbdeploy-undo-output-file", "undo script path + name")
 
-  lazy val dbDeploySettings: Seq[Setting[_]] = Seq[Setting[_]](
-    dbDeployUserId := "springer",
-    dbDeployPassword := "springer",
-    dbDeployDriver := "com.mysql.jdbc.Driver",
-    dbDeployUrl := "jdbc:mysql://localhost:3306/springer",
+  lazy val dbDeploySettings = Seq[Setting[_]](
     dbDeployDir := file("src/main/dbdeploy"),
     dbDeployTask <<= execute
   )
