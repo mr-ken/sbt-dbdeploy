@@ -1,6 +1,8 @@
-package com.dbdeploy
+package mrken
 
-import database.DelimiterType
+import com.dbdeploy.database.DelimiterType
+import com.dbdeploy.DbDeploy
+
 import sbt._
 
 object DbDeployPlugin extends Plugin {
