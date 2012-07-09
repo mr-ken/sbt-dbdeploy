@@ -27,6 +27,7 @@ object DbDeployPlugin extends Plugin {
 
   lazy val dbDeploySettings = Seq[Setting[_]](
 
+    dbDeployPassword := None,
     dbDeployDir := file("src/main/dbdeploy"),
 
     dbDeploySetupTask <<= (dbDeployUserId, dbDeployPassword, dbDeployDriver, dbDeployUrl, dbDeployDir) map {
