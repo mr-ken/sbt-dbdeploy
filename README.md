@@ -47,6 +47,9 @@ Or if you are using a build object extending from Build:
 
     }
 
+## Tasks
+
+dbdeploy -- runs dbdeploy
 
 ## Settings
 
@@ -172,9 +175,4 @@ The following parameters only apply in "output script" mode:
     </tbody>
 </table>
 
-## Tasks
-
-dbdeploy -- runs dbdeploy
-
-
-
+For more info: http://code.google.com/p/dbdeploy and http://www.dbdeploy.com
