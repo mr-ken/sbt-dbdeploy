@@ -76,7 +76,7 @@ Or if you are using a build object extending from Build:
         <td style="border: 1px solid #ccc; padding: 5px;">The password of the dbms user who has permissions to select
             from the schema version table.
         </td>
-        <td style="border: 1px solid #ccc; padding: 5px;">Yes</td>
+        <td style="border: 1px solid #ccc; padding: 5px;">No</td>
     </tr>
     <tr>
         <td style="border: 1px solid #ccc; padding: 5px;">dbDeployDir</td>
