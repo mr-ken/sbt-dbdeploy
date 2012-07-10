@@ -65,7 +65,7 @@ Or if you are using a build object extending from Build:
         <td style="border: 1px solid #ccc; padding: 5px;">Yes</td>
     </tr>
     <tr>
-        <td style="border: 1px solid #ccc; padding: 5px;">dbDeployUserid</td>
+        <td style="border: 1px solid #ccc; padding: 5px;">dbDeployUserId</td>
         <td style="border: 1px solid #ccc; padding: 5px;">The ID of a dbms user who has permissions to select from the
             schema version table.
         </td>
@@ -115,3 +115,10 @@ Or if you are using a build object extending from Build:
     </tr>
     </tbody>
 </table>
+
+## Tasks
+
+dbdeploy -- runs dbdeploy
+
+
+
