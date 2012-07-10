@@ -6,9 +6,9 @@ object Build extends sbt.Build {
   val project = Project("sbt-dbdeploy", file("."))
     .settings(
       sbtPlugin := true,
-      organization := "com.dbdeploy",
-      logLevel := Level.Info,
+      organization := "mrken",
+      version := "0.1",
       libraryDependencies += "com.dbdeploy" % "dbdeploy-core" % "3.0M3"
-    )
+  )
 
 }
