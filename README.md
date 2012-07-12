@@ -49,7 +49,7 @@ Or if you are using a build object extending from Build:
 
     }
 
-### Step 2: create the default delta script directory
+### Step 3: create the default delta script directory
 
     ${PROJECT_ROOT}/src/main/dbdeploy
     
