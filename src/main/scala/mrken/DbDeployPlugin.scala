@@ -4,6 +4,7 @@ import com.dbdeploy.database.DelimiterType
 import com.dbdeploy.DbDeploy
 
 import sbt._
+import sbt.Keys._
 
 object DbDeployPlugin extends Plugin {
 
