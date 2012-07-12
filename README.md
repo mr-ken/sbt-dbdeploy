@@ -7,7 +7,9 @@ dbdeploy plugin for sbt 0.11+
 
 Add the following to your `project/plugins.sbt`:
 
-    addSbtPlugin("mrken" % "sbt-dbdeploy" % "0.1") // doesn't work yet
+    resolvers += Resolver.url("scalasbt", new URL("http://scalasbt.artifactoryonline.com/scalasbt/sbt-plugin-releases"))(Resolver.ivyStylePatterns)
+
+    addSbtPlugin("mrken" %% "sbt-dbdeploy" % "0.1")
 
     libraryDependencies += "mysql" % "mysql-connector-java" % "5.1.20" // JDBC driver library
 
