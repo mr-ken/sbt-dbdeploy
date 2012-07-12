@@ -49,6 +49,12 @@ Or if you are using a build object extending from Build:
 
     }
 
+### Step 2: create the default delta script directory
+
+    ${PROJECT_ROOT}/src/main/dbdeploy
+    
+If you want to specify a different location for your delta scripts, you need to set the dbDeployDir setting (see below).
+
 ## Tasks
 
 dbdeploy -- runs dbdeploy
