@@ -94,7 +94,7 @@ dbdeploy -- runs dbdeploy
         <td>Full or relative path to the directory containing the delta
             scripts.
         </td>
-        <td>Yes</td>
+        <td>No, default src/main/dbdeploy</td>
     </tr>
     <tr>
         <td>dbDeployChangeLogTableName</td>
