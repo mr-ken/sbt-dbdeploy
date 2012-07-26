@@ -20,19 +20,23 @@ object DbDeployPlugin extends Plugin {
   val dbDeployDbms              = SettingKey[Option[String]]("dbdeploy-dbms", "Your DBMS")
   val dbDeployTemplateDir       = SettingKey[Option[File]]("dbdeploy-template-dir", "Directory for DBMS template scripts, if not using built-in")
   val dbDeployEncoding          = SettingKey[Option[String]]("dbdeploy-encoding", "Charset of SQL scripts - default UTF-8")
-  val dbDeployLastChangeToApply = SettingKey[Option[Long]]("Dbdeploy-last-change-to-apply", "Number of the last script to apply")
+  val dbDeployLastChangeToApply = SettingKey[Option[Long]]("dbdeploy-last-change-to-apply", "Number of the last script to apply")
   val dbDeployUndoOutputFile    = SettingKey[Option[File]]("dbdeploy-undo-output-file", "Undo script path + name")
   val dbDeployChangeLogTableName= SettingKey[Option[String]]("dbdeploy-changelog-table-name", "Change log table name")
   val dbDeployDelimiter         = SettingKey[Option[String]]("dbdeploy-delimiter", "Statement delimiter - default ;")
   val dbDeployDelimiterType     = SettingKey[Option[DelimiterType]]("dbdeploy-delimiter-type", "Statement delimiter type - row or normal, default normal")
 
-  lazy val dbDeploySettings = Seq[Setting[_]](
+  lazy val dbDeploySettings: Seq[Setting[_]] = Seq(
 
     dbDeployPassword := None,
     dbDeployDir := file("src/main/dbdeploy"),
+    dbDeployChangeLogTableName := None,
+    dbDeployLastChangeToApply := None,
+    dbDeployUndoOutputFile := None,
+    dbDeployEncoding := None,
 
-    dbDeploySetupTask <<= (dbDeployUserId, dbDeployPassword, dbDeployDriver, dbDeployUrl, dbDeployDir) map {
-      (userId: String, password: Option[String], driver: String, url: String, dir: File) =>
+    dbDeploySetupTask <<= (dbDeployUserId , dbDeployPassword , dbDeployDriver , dbDeployUrl , dbDeployDir , dbDeployChangeLogTableName , dbDeployLastChangeToApply , dbDeployUndoOutputFile , dbDeployEncoding ) map {
+      (userId: String, password: Option[String], driver: String, url: String, dir: File, changeLogTableName: Option[String], lastChangeToApply: Option[Long], undoOutputFile: Option[File], encoding: Option[String]) =>
 
         val dbDeploy = new DbDeploy()
         dbDeploy.setUserid(userId)
@@ -40,27 +44,24 @@ object DbDeployPlugin extends Plugin {
         dbDeploy.setDriver(driver)
         dbDeploy.setUrl(url)
         dbDeploy.setScriptdirectory(dir)
+        lastChangeToApply.foreach(dbDeploy.setLastChangeToApply(_))
+        undoOutputFile.foreach(dbDeploy.setUndoOutputfile(_))
+        changeLogTableName.foreach(dbDeploy.setChangeLogTableName(_))
         dbDeploy
     },
 
     dbDeployOutputFile := None,
     dbDeployDbms := None,
     dbDeployTemplateDir := None,
-    dbDeployLastChangeToApply := None,
-    dbDeployUndoOutputFile := None,
-    dbDeployChangeLogTableName := None,
     dbDeployDelimiter := None,
     dbDeployDelimiterType := None,
 
-    dbDeployTask <<= (dbDeploySetupTask, dbDeployOutputFile, dbDeployDbms, dbDeployTemplateDir, dbDeployLastChangeToApply, dbDeployUndoOutputFile, dbDeployChangeLogTableName, dbDeployDelimiter, dbDeployDelimiterType) map {
-      (dbDeploy: DbDeploy, outputFile: Option[File], dbms: Option[String], templateDir: Option[File], lastChangeToApply: Option[Long], undoOutputFile: Option[File], changeLogTableName: Option[String], delimiter: Option[String], delimiterType: Option[DelimiterType]) =>
+    dbDeployTask <<= (dbDeploySetupTask , dbDeployOutputFile , dbDeployDbms , dbDeployTemplateDir , dbDeployDelimiter , dbDeployDelimiterType , streams) map {
+      (dbDeploy: DbDeploy, outputFile: Option[File], dbms: Option[String], templateDir: Option[File], delimiter: Option[String], delimiterType: Option[DelimiterType], out: TaskStreams) =>
 
         outputFile.foreach(dbDeploy.setOutputfile(_))
         dbms.foreach(dbDeploy.setDbms(_))
         templateDir.foreach(dbDeploy.setTemplatedir(_))
-        lastChangeToApply.foreach(dbDeploy.setLastChangeToApply(_))
-        undoOutputFile.foreach(dbDeploy.setUndoOutputfile(_))
-        changeLogTableName.foreach(dbDeploy.setChangeLogTableName(_))
         delimiter.foreach(dbDeploy.setDelimiter(_))
         delimiterType.foreach(dbDeploy.setDelimiterType(_))
 
